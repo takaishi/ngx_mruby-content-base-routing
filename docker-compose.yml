@@ -1,0 +1,21 @@
+ngx_mruby:
+  build: .
+  ports:
+    - 8000:80
+  links:
+    - production
+    - staging
+production:
+  image: ruby:2.4.1-alpine
+  command: ruby -run -e httpd /web -p 8000
+  volumes:
+    - ./production:/web
+  ports:
+    - 8000
+staging:
+  image: ruby:2.4.1-alpine
+  command: ruby -run -e httpd /web -p 8000
+  volumes:
+    - ./staging:/web
+  ports:
+    - 8000
